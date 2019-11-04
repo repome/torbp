@@ -87,7 +87,7 @@ fi
 if [ $TOR_IS_CACHED -eq 0 ] ; then
     tar -zxf ${TOR_SRC_NAME}
     cd tor-${TOR_VER}
-    ./configure --prefix=$CACHE_DIR/tor --enable-silent-rules
+    ./configure --prefix=$CACHE_DIR/tor --enable-silent-rules | grep -v '^-- ' 
     if [ $? -ne 0 ]; then
         echo "FAILED to configure for compliation" | indent
         exit 1
