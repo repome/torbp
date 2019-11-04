@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+indent() {
+    sed -u 's/^/      /'
+}
+
 curl_opts=(curl --connect-timeout 15 --retry 3 --retry-delay 5 --silent --location --insecure --fail)
 
 clean_html_index() {
@@ -27,14 +31,6 @@ RUN_COMMAND=run_tor
 TOR_VER=${TOR_V}
 TOR_SRC_NAME=tor-${TOR_VER}.tar.gz
 TOR_DIST_URL=https://dist.torproject.org/
-
-## --
-
-# set -x # enable debugging
-
-indent() {
-    sed -u 's/^/      /'
-}
 
 BUILD_DIR=$1
 CACHE_DIR=$2
@@ -97,7 +93,7 @@ if [ $TOR_IS_CACHED -eq 0 ] ; then
         exit 1
     fi
 
-    make install
+    make install --silent
     if [ $? -ne 0 ]; then
         echo "FAILED to run make install" | indent
         exit  1
