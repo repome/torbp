@@ -93,7 +93,7 @@ if [ $TOR_IS_CACHED -eq 0 ] ; then
         exit 1
     fi
 
-    make install --silent
+    make install | grep -v '^-- ' 
     if [ $? -ne 0 ]; then
         echo "FAILED to run make install" | indent
         exit  1
